@@ -32,6 +32,9 @@ function CsgoData(body, _steamApiKey) {
   if (body.hasOwnProperty('auth')) {
     this.auth = Auth(body.auth);
   }
+  if (body.hasOwnProperty('phase_countdowns')) {
+    this.phase_countdowns = PhaseCountdowns(body.phase_countdowns);
+  }
 }
 
 /**
@@ -147,6 +150,16 @@ function Auth(auth) {
   var data = new Object();
   data.token = auth.token;
   return data;
+}
+/**
+ * Phase Countdowns data on the CSGO data
+ * @param {JSON} phase_countdowns  The Phase Countdowns data
+ */
+function PhaseCountdowns(phasecountdowns) {
+  var data = new Object();
+  data.phase = phasecountdowns.phase;
+  data.phase_ends_in = phasecountdowns.phase_ends_in;
+  return data
 }
 
 /**

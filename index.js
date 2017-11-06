@@ -84,7 +84,12 @@ function Round(round) {
 function Player(player, steamid) {
   var data = new Object();
   data.steamid = player.steamid || steamid;
-  data.name = player.name;
+  if (player.name.length > 14) {
+      data.name = player.name.substring(0,11) + '...';
+  }
+  else {
+    data.name = player.name;
+  }
   // Team can be 'undefined' if we're on the free view
   data.team = player.team || 'SPEC';
   if (player.hasOwnProperty('activity')) {

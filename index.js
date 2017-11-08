@@ -100,6 +100,9 @@ function Player(player, steamid) {
     data.health = player.state.health;
     data.armor = player.state.armor;
     data.helmet = player.state.helmet;
+    if (player.state.defusekit) {
+      data.defusekit = true;
+    }
     data.flashed = player.state.flashed;
     data.burning = player.state.burning;
     data.money = player.state.money;

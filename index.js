@@ -35,6 +35,9 @@ function CsgoData(body, _steamApiKey) {
   if (body.hasOwnProperty('phase_countdowns')) {
     this.phase_countdowns = PhaseCountdowns(body.phase_countdowns);
   }
+  if (body.hasOwnProperty('previously')) {
+    this.previously = body.previously;
+  }
 }
 
 /**
@@ -108,6 +111,7 @@ function Player(player, steamid) {
     data.money = player.state.money;
     data.roundKills = player.state.round_kills;
     data.roundKillsHS = player.state.round_killhs;
+    data.equipValue = player.state.equip_value;
   }
   if (player.hasOwnProperty('weapons')) {
     data.weapons = [];
@@ -202,6 +206,9 @@ function getWeaponClass(category) {
     case 'Grenade':
       return 'grenade';
       break;
+    case 'C4':
+      return 'C4';
+      break;
     default:
 
   }
@@ -234,7 +241,7 @@ CsgoData.prototype.sortPlayersBySteamId = function () {
  * @return {boolean}         True if the round status changed, false otherwise
  */
 CsgoData.prototype.isStatusChanged = function (oldData) {
-  return this.round.phase !== oldData.round.phase;
+  return this.phase_countdowns.phase !== oldData.phase_countdowns.phase;
 };
 
 /**
@@ -397,11 +404,11 @@ CsgoData.prototype.getPlayerImages = function (newData, oldData) {
     
     // So first we check we still have the same 10 players
     if (!newData.IsPlayersChanged(oldData)) {
-      console.log('Players didnt change');
+      // console.log('Players didnt change');
       // And these 10 players have a picture
       for (var player in oldData.players) {
         if (oldData.players[player].image === undefined) {
-          console.log('A player doesnt have a picture.');
+          // console.log('A player doesnt have a picture.');
           getImages = true;
         }
       }
@@ -411,7 +418,7 @@ CsgoData.prototype.getPlayerImages = function (newData, oldData) {
     // We don't have all the pictures, so we'll call the Steam API
     // If only a single player changed, we still call the pictures of the 10 players, beceause we will always use one call.
     if (getImages) {
-      console.log('Get Images');
+      // console.log('Get Images');
       // We get all the players steamID to join them on the URL
       var playersId = [];
       var playersIdString;

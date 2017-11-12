@@ -124,7 +124,7 @@ function Player(player, steamid) {
       if (player.weapons[key].hasOwnProperty('ammo_clip_max')) {
         weapon.ammo = player.weapons[key].ammo_clip;
         weapon.ammoMax = player.weapons[key].ammo_clip_max;
-        weapon.ammoreserve = player.weapons[key].ammo_reserve;
+        weapon.ammoReserve = player.weapons[key].ammo_reserve;
       }
       data.weapons.push(weapon);
     }

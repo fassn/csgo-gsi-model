@@ -88,7 +88,7 @@ function Player(player, steamid) {
   var data = new Object();
   data.steamid = player.steamid || steamid;
   if (player.name && player.name.length > 14) {
-      data.name = player.name.substring(0,11) + '...';
+      data.name = player.name.substring(0,11);
   }
   else {
     data.name = player.name;
@@ -255,6 +255,12 @@ CsgoData.prototype.isStatusChanged = function (oldData) {
  */
 CsgoData.prototype.isBombStatusChanged = function (oldData) {
   return this.round.bomb !== oldData.round.bomb;
+};
+
+CsgoData.prototype.isBombBeingDefused = function () {
+  if (this.phase_countdowns.phase === 'defuse') {
+    return this.phase_countdowns.phase_ends_in;
+  }
 };
 
 /**

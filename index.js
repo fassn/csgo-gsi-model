@@ -87,8 +87,8 @@ function Round(round) {
 function Player(player, steamid) {
   var data = new Object();
   data.steamid = player.steamid || steamid;
-  if (player.name && player.name.length > 14) {
-      data.name = player.name.substring(0,9);
+  if (player.name && player.name.length > 10) {
+      data.name = player.name.substring(0,10);
   }
   else {
     data.name = player.name;
